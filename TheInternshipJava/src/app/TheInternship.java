@@ -2,6 +2,8 @@ package app;
 
 import controllers.ViewController;
 import domain.Specialisatie;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -12,6 +14,7 @@ import javafx.stage.Stage;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 /**
  * @author iDev
  */
@@ -29,9 +32,15 @@ public class TheInternship extends Application
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("TheInternshipPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Specialisatie sp = new Specialisatie("test");
+        Specialisatie sp = new Specialisatie("test32");
         em.persist(sp);
         //test
+        em.getTransaction().commit();
+        em.clear();
+        
+        em.getTransaction().begin();
+        TypedQuery<Specialisatie> queryFindAll = em.createNamedQuery("Specialisatie.findAll", Specialisatie.class);
+        List<Specialisatie> list = queryFindAll.getResultList();
         em.getTransaction().commit();
         em.close();
         emf.close();
