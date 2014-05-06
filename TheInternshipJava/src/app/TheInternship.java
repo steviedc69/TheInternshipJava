@@ -31,7 +31,7 @@ public class TheInternship extends Application
         em.getTransaction().begin();
         Specialisatie sp = new Specialisatie("test");
         em.persist(sp);
-        
+        //test
         em.getTransaction().commit();
         em.close();
         emf.close();
