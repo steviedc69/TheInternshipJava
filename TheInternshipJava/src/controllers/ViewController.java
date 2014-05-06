@@ -26,7 +26,7 @@ public class ViewController extends StackPane
     {
         super();
     }
-    
+    //test
     public void addView(String id, Node view)
     {
         views.put(id, view);

@@ -1,6 +1,7 @@
 package app;
 
 import controllers.ViewController;
+import domain.Specialisatie;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -8,6 +9,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 /**
  * @author iDev
  */
@@ -22,6 +26,16 @@ public class TheInternship extends Application
     @Override
     public void start(Stage stage) throws Exception 
     {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("TheInternshipPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Specialisatie sp = new Specialisatie("test");
+        em.persist(sp);
+        
+        em.getTransaction().commit();
+        em.close();
+        emf.close();
+        
         ViewController viewContainer = new ViewController();
         viewContainer.loadView(idLoginPanel, fileLoginPanel);
         viewContainer.loadView(idOverzichtPanel, fileOverzichtPanel);
