@@ -23,14 +23,13 @@ public class OpdrachtBuilder {
     private Boolean isSemester2;
     private String schooljaar;
     private String admincomment;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date activatiedatum;
+    private String activatiedatum;
     private int aantalStudenten;
-    private int adres_Id;
-    private int ondertekenaar;
-    private int specId;
-    private int stagementor;
-    private String bedrijfId;
+    private Adres adres;
+    private Contactpersoon ondertekenaar;
+    private Specialisatie specialisatie;
+    private Contactpersoon stagementor;
+    private Bedrijf bedrijf;
     
     public OpdrachtBuilder(){}
     public OpdrachtBuilder title(String title){
@@ -65,7 +64,7 @@ public class OpdrachtBuilder {
         return this;
     }
     
-    public OpdrachtBuilder activatieDatum(Date activatiedatum){
+    public OpdrachtBuilder activatieDatum(String activatiedatum){
         this.activatiedatum = activatiedatum;
         return this;
     }
@@ -73,30 +72,30 @@ public class OpdrachtBuilder {
         this.aantalStudenten = aantalStudenten;
         return this;
     }
-    public OpdrachtBuilder adres_id(int adres_Id){
-        this.adres_Id = adres_Id;
+    public OpdrachtBuilder adres(Adres adres){
+        this.adres = adres;
         return this;
     }
-    public OpdrachtBuilder ondertekenaar(int ondertekenaar){
+    public OpdrachtBuilder ondertekenaar(Contactpersoon ondertekenaar){
         this.ondertekenaar = ondertekenaar;
         return this;
     }
-    public OpdrachtBuilder specId(int specId){
-        this.specId = specId;
+    public OpdrachtBuilder specialisatie(Specialisatie specialisatie){
+        this.specialisatie = specialisatie;
         return this;
     }
-    public OpdrachtBuilder stagementor(int stagementor){
+    public OpdrachtBuilder stagementor(Contactpersoon stagementor){
         this.stagementor = stagementor;
         return this;
     }
-    public OpdrachtBuilder bedrijfId(String bedrijfId){
-        this.bedrijfId = bedrijfId;
+    public OpdrachtBuilder bedrijfId(Bedrijf bedrijf){
+        this.bedrijf = bedrijf;
         return this;
     }
     
     public Opdracht buildOpdracht(){
         return new Opdracht(title, omschrijving, vaardigheden, isSemester1, isSemester2, schooljaar, admincomment, activatiedatum, 
-             aantalStudenten,  adres_Id,  ondertekenaar,  specId,  stagementor,  bedrijfId);
+             aantalStudenten,  adres,  ondertekenaar,  specialisatie,  stagementor,  bedrijf);
     }
 }
 

@@ -1,6 +1,7 @@
 package app;
 
 import controllers.ViewController;
+import domain.*;
 import domain.Specialisatie;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,18 +33,13 @@ public class TheInternship extends Application
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("TheInternshipPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Specialisatie sp = new Specialisatie("test32");
-        em.persist(sp);
-        //test
-        em.getTransaction().commit();
-        em.clear();
-        
-        em.getTransaction().begin();
-        TypedQuery<Specialisatie> queryFindAll = em.createNamedQuery("Specialisatie.findAll", Specialisatie.class);
-        List<Specialisatie> list = queryFindAll.getResultList();
+
+        TypedQuery<Opdracht> queryFindAll = em.createNamedQuery("Opdracht.findAll", Opdracht.class);
+        List<Opdracht> list = queryFindAll.getResultList();
         em.getTransaction().commit();
         em.close();
         emf.close();
+        
         
         ViewController viewContainer = new ViewController();
         viewContainer.loadView(idLoginPanel, fileLoginPanel);
