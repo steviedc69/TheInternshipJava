@@ -29,16 +29,18 @@ public class Bedrijf implements Serializable{
     private String telefoon;
     private String bereikbaarheid;
     private String activiteit;
+    private String imageUrl;
     
     public Bedrijf(){}
 
-    public Bedrijf(Adres adres, String bedrijfsnaam, String url, String telefoon, String bereikbaarheid, String activiteit) {
+    public Bedrijf(Adres adres, String bedrijfsnaam, String url, String telefoon, String bereikbaarheid, String activiteit, String imageUrl) {
         this.adres = adres;
         this.bedrijfsnaam = bedrijfsnaam;
         this.url = url;
         this.telefoon = telefoon;
         this.bereikbaarheid = bereikbaarheid;
         this.activiteit = activiteit;
+        this.imageUrl = imageUrl;
     }
 
     public String getId() {
@@ -95,6 +97,14 @@ public class Bedrijf implements Serializable{
 
     public void setActiviteit(String activiteit) {
         this.activiteit = activiteit;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
     
     

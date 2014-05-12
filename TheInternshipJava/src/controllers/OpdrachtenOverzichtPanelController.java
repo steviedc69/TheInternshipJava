@@ -1,63 +1,66 @@
 package controllers;
 
 import app.TheInternship;
+import domain.Opdracht;
+import domain.OpdrachtBuilder;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.text.Text;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
  *
  * @author iDev
  */
-public class OpdrachtenOverzichtPanelController implements Initializable, ControlledView 
-{
-    ViewController controller;
-    
+public class OpdrachtenOverzichtPanelController implements Initializable {
+
     @FXML
-    public ListView<String> opdrachtenLijst;
+    public ListView<Opdracht> opdrachtenLijst ;
+    
+    public ObservableList<Opdracht> listOpdrachten = FXCollections.observableArrayList();
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+    
+    @FXML
+    public void vulLijst(List<Opdracht> list) {
+        setupListView();
+        listOpdrachten.addAll(list);
 
-    @Override
-    public void setViewParent(ViewController viewcontroller)
-    {
-        controller = viewcontroller;
+        opdrachtenLijst.setItems(listOpdrachten);
+        opdrachtenLijst.setCellFactory(new Callback<ListView<Opdracht>, 
+            ListCell<Opdracht>>() {
+                @Override 
+                public ListCell<Opdracht> call(ListView<Opdracht> list) {
+                    return new MyCell();
+                }
+            }
+        );
+
     }
     
-    @FXML
-    public void vulLijst()
-    {
-        ObservableList<String> items = FXCollections.observableArrayList(
-                "Green IT: Domotica op KMO niveau ",
-                "Ontwerpen van een live Dashbord ",
-                "Kinect Game",
-                "Nieuwe login mogelijkheden voor de KMO ",
-                "Windows 8 Metro applicaties",
-                "Ontwikkeling van een mobile applicatie voor het tekenen van leveringsbonnen",
-                "White hacking",
-                "Ontwerpen van een live Dashbord ",
-                "Kinect Game",
-                "Nieuwe login mogelijkheden voor de KMO ",
-                "Windows 8 Metro applicaties",
-                "Ontwikkeling van een mobile applicatie voor het tekenen van leveringsbonnen",
-                "White hacking");
-        opdrachtenLijst.setItems(items);
+    //Instellen van de listview. dwz hoogte en breedte
+    public void setupListView(){
+        opdrachtenLijst.relocate(10, 210);
+        opdrachtenLijst.setPrefSize(opdrachtenLijst.getPrefWidth(), opdrachtenLijst.getPrefHeight());
     }
     
-    @FXML
-    private void onBack(ActionEvent event)
-    {
-        controller.setView(TheInternship.idLoginPanel);
-    }
+    
+
 }

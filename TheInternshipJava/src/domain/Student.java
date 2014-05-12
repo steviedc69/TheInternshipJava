@@ -7,6 +7,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -30,6 +31,9 @@ public class Student implements Serializable{
     private String gsmnummer;
     private String gebdatum;
     private boolean notFirstTime;
+    @ManyToMany
+    @JoinTable(name="favorites")
+    List<Opdracht> opdrachten;
 
     public Student(String naam, String voornaam, String straat, int straatnummer, String woonplaats, int postcode, String gsmnummer, String gebdatum, boolean notFirstTime) {
         this.naam = naam;

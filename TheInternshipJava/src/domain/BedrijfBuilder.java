@@ -17,6 +17,7 @@ public class BedrijfBuilder {
     private String telefoon;
     private String bereikbaarheid;
     private String activiteit;
+    private String imageUrl;
 
     public BedrijfBuilder() {
     }
@@ -51,8 +52,14 @@ public class BedrijfBuilder {
         return this;
     }
     
+    public BedrijfBuilder imageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+        return this;
+    }
+
+    
     public Bedrijf buildBedrijf(){
-        return new Bedrijf(adres, bedrijfsnaam, url, telefoon, bereikbaarheid, activiteit);
+        return new Bedrijf(adres, bedrijfsnaam, url, telefoon, bereikbaarheid, activiteit, imageUrl);
     }
     
 }

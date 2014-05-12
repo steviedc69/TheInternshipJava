@@ -10,11 +10,13 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -48,7 +50,7 @@ public class Opdracht implements Serializable{
     private Date activatieDatum;
     private int aantalStudenten;
     @OneToOne
-    @JoinColumn(name="adres_Id")
+    @JoinColumn(name="adresId")
     private Adres adres;
     @OneToOne
     @JoinColumn(name="ondertekenaar")
@@ -62,10 +64,22 @@ public class Opdracht implements Serializable{
     @OneToOne
     @JoinColumn(name="bedrijfId")
     private Bedrijf bedrijf;
+    @ManyToMany(mappedBy="opdrachten")
+    @JoinTable(name="favorites")
+    private List<Student> studenten;
+    @OneToOne
+    @JoinColumn(name="Status_Id")
+    private Status status;
+    @OneToOne
+    @JoinColumn(name="begeleider_id")
+    private StageBegeleider stagebegeleider;
     
+    @ManyToMany
+    @JoinTable(name="begeleiderpreferences")
+    private List<StageBegeleider> stagebegeleiders;
     
     public Opdracht(String title, String omschrijving, String vaardigheden, Boolean isSemester1, Boolean isSemester2, String schooljaar, String admincomment, String activatiedatum, 
-            int aantalStudenten, Adres adres, Contactpersoon ondertekenaar, Specialisatie specialisatie, Contactpersoon stagementor, Bedrijf bedrijf){
+            int aantalStudenten, Adres adres, Contactpersoon ondertekenaar, Specialisatie specialisatie, Contactpersoon stagementor, Bedrijf bedrijf, Status status, StageBegeleider stagebegeleider){
         this.title = title;
         this.omschrijving = omschrijving;
         this.vaardigheden = vaardigheden;
@@ -79,6 +93,8 @@ public class Opdracht implements Serializable{
         this.specialisatie = specialisatie;
         this.stagementor = stagementor;
         this.bedrijf = bedrijf;
+        this.status = status;
+        this.stagebegeleider = stagebegeleider;
         try {
             activatieDatum = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(activatiedatum);
         } catch (ParseException e) {
@@ -121,7 +137,7 @@ public class Opdracht implements Serializable{
         this.vaardigheden = vaardigheden;
     }
 
-    public Boolean isIsSemester1() {
+    public Boolean getIsSemester1() {
         return isSemester1;
     }
 
@@ -129,7 +145,7 @@ public class Opdracht implements Serializable{
         this.isSemester1 = isSemester1;
     }
 
-    public Boolean isIsSemester2() {
+    public Boolean getIsSemester2() {
         return isSemester2;
     }
 
@@ -213,5 +229,50 @@ public class Opdracht implements Serializable{
     public void setBedrijfId(Bedrijf bedrijf) {
         this.bedrijf = bedrijf;
     }
+
+
+
+    
+
+    public List<Student> getStudenten() {
+        return studenten;
+    }
+
+    public void setStudenten(List<Student> studenten) {
+        this.studenten = studenten;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public StageBegeleider getStagebegeleider() {
+        return stagebegeleider;
+    }
+
+    public void setStagebegeleider(StageBegeleider stagebegeleider) {
+        this.stagebegeleider = stagebegeleider;
+    }
+
+    public List<StageBegeleider> getStagebegeleiders() {
+        return stagebegeleiders;
+    }
+
+    public void setStagebegeleiders(List<StageBegeleider> stagebegeleiders) {
+        this.stagebegeleiders = stagebegeleiders;
+    }
+
+        
+    
+    
+    @Override
+    public String toString() {
+        return "Opdracht{" + "title=" + title + ", omschrijving=" + omschrijving + ", vaardigheden=" + vaardigheden + ", isSemester1=" + isSemester1 + ", isSemester2=" + isSemester2 + ", schooljaar=" + schooljaar + ", admincomment=" + admincomment + ", activatieDatum=" + activatieDatum + ", aantalStudenten=" + aantalStudenten + ", adres=" + adres + ", ondertekenaar=" + ondertekenaar + ", specialisatie=" + specialisatie + ", stagementor=" + stagementor + ", bedrijf=" + bedrijf + '}';
+    }
+    
     
 }

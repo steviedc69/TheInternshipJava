@@ -30,6 +30,8 @@ public class OpdrachtBuilder {
     private Specialisatie specialisatie;
     private Contactpersoon stagementor;
     private Bedrijf bedrijf;
+    private StageBegeleider stagebegeleider;
+    private Status status;
     
     public OpdrachtBuilder(){}
     public OpdrachtBuilder title(String title){
@@ -88,6 +90,14 @@ public class OpdrachtBuilder {
         this.stagementor = stagementor;
         return this;
     }
+    public OpdrachtBuilder stagebegeleider(StageBegeleider stagebegeleider){
+        this.stagebegeleider = stagebegeleider;
+        return this;
+    }
+    public OpdrachtBuilder status(Status status){
+        this.status = status;
+        return this;
+    }
     public OpdrachtBuilder bedrijfId(Bedrijf bedrijf){
         this.bedrijf = bedrijf;
         return this;
@@ -95,7 +105,7 @@ public class OpdrachtBuilder {
     
     public Opdracht buildOpdracht(){
         return new Opdracht(title, omschrijving, vaardigheden, isSemester1, isSemester2, schooljaar, admincomment, activatiedatum, 
-             aantalStudenten,  adres,  ondertekenaar,  specialisatie,  stagementor,  bedrijf);
+             aantalStudenten,  adres,  ondertekenaar,  specialisatie,  stagementor,  bedrijf, status, stagebegeleider);
     }
 }
 

@@ -17,6 +17,7 @@ public class ContactPersoonBuilder {
     private String contactEmail;
     private String contactTelNr;
     private String gsmNummer;
+    private Boolean actief;
     private Bedrijf bedrijf;
     
     public ContactPersoonBuilder(){}
@@ -56,7 +57,12 @@ public class ContactPersoonBuilder {
         return this;
     }
     
+    public ContactPersoonBuilder actief(Boolean actief){
+        this.actief = actief;
+        return this;
+    }
+    
     public Contactpersoon buildContactPersoon(){
-        return new Contactpersoon(naam, voornaam, functie, contactEmail, contactTelNr, gsmNummer, bedrijf);
+        return new Contactpersoon(naam, voornaam, functie, contactEmail, contactTelNr, gsmNummer, actief,bedrijf);
     }
 }

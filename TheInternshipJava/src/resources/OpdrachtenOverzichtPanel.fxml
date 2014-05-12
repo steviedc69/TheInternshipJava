@@ -8,17 +8,30 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane id="lijst" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controllers.OpdrachtenOverzichtPanelController">
+<BorderPane id="lijst" prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controllers.OpdrachtenOverzichtPanelController">
   <bottom>
     <ToolBar>
       <items>
-        <Button defaultButton="false" focusTraversable="false" mnemonicParsing="false" onAction="#vulLijst" style="-fx-base: rgba(0,111,184,1);" text="Opdrachten" />
-        <Button cancelButton="false" defaultButton="false" focusTraversable="false" mnemonicParsing="false" onAction="#onBack" text="Annuleer" textAlignment="LEFT" />
+        <Button fx:id="Opslaan" defaultButton="false" focusTraversable="false" mnemonicParsing="false" style="-fx-base: rgba(0,111,184,1);" text="Opslaan" />
+        <Button cancelButton="false" defaultButton="false" focusTraversable="false" mnemonicParsing="false" text="Annuleer" textAlignment="LEFT" />
       </items>
     </ToolBar>
   </bottom>
   <center>
-    <ListView fx:id="opdrachtenLijst" focusTraversable="false" prefHeight="-1.0" prefWidth="-1.0" style="" />
+    <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab text="Beheer opdrachten">
+          <content>
+            <ListView fx:id="opdrachtenLijst" editable="true" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" orientation="VERTICAL" pickOnBounds="false" prefHeight="-1.0" prefWidth="-1.0" />
+          </content>
+        </Tab>
+        <Tab text="Untitled Tab 2">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
   </center>
   <stylesheets>
     <URL value="@style.css" />
@@ -28,7 +41,7 @@
       <children>
         <Label alignment="CENTER_LEFT" contentDisplay="LEFT" layoutX="14.0" layoutY="-9.0" maxHeight="-1.0" minHeight="46.0" prefHeight="62.0" style="&#10;" text="Overzicht stageopdrachten" textAlignment="LEFT" textFill="WHITE">
           <font>
-            <Font name="Tunga Bold" size="50.0" />
+            <Font size="50.0" />
           </font>
         </Label>
       </children>

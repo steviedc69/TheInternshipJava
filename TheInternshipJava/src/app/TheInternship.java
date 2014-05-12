@@ -1,15 +1,14 @@
 package app;
 
-import controllers.ViewController;
+import controllers.OpdrachtenOverzichtPanelController;
+
 import domain.*;
-import domain.Specialisatie;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import javax.persistence.EntityManager;
@@ -22,14 +21,18 @@ import javax.persistence.TypedQuery;
 
 public class TheInternship extends Application 
 {
-    public static String idLoginPanel = "login";
-    public static String fileLoginPanel = "/resources/LoginPanel.fxml";
-    public static String idOverzichtPanel = "overzicht";
-    public static String fileOverzichtPanel = "/resources/OpdrachtenOverzichtPanel.fxml";
-    
     @Override
     public void start(Stage stage) throws Exception 
     {
+        BorderPane root = initialize();        
+        Scene scene = new Scene(root);
+        
+        stage.setScene(scene);
+        stage.setTitle("The Internship Desktop Application");
+        stage.show();
+    }
+    
+    public List<Opdracht> getOpdrachten(){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("TheInternshipPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -40,20 +43,22 @@ public class TheInternship extends Application
         em.close();
         emf.close();
         
+        return list;
+    }
+    
+    public BorderPane initialize() throws IOException{
         
-        ViewController viewContainer = new ViewController();
-        viewContainer.loadView(idLoginPanel, fileLoginPanel);
-        viewContainer.loadView(idOverzichtPanel, fileOverzichtPanel);
+        List<Opdracht> list = getOpdrachten();
         
-        viewContainer.setView(idLoginPanel);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/OpdrachtenOverzichtPanel.fxml"));
+        loader.load();
         
-        Group root = new Group();
-        root.getChildren().addAll(viewContainer);
-        Scene scene = new Scene(root);
+        OpdrachtenOverzichtPanelController controller = loader.getController();
+        controller.vulLijst(list);
         
-        stage.setScene(scene);
-        stage.setTitle("The Internship Desktop Application");
-        stage.show();
+        BorderPane root = loader.getRoot();
+        
+        return root;
     }
 
     public static void main(String[] args) 

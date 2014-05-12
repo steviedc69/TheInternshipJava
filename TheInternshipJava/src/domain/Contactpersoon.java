@@ -33,20 +33,23 @@ public class Contactpersoon implements Serializable{
     private String contactEmail;
     private String contactTelNr;
     private String gsmNummer;
+    private Boolean actief;
     @ManyToOne
     @JoinColumn(name="bedrijfId")
+    
     private Bedrijf bedrijf;
-//e
+
     public Contactpersoon() {
     }
 
-    public Contactpersoon(String naam, String voornaam, String functie, String contactEmail, String contactTelNr, String gsmNummer, Bedrijf bedrijf) {
+    public Contactpersoon(String naam, String voornaam, String functie, String contactEmail, String contactTelNr, String gsmNummer,Boolean actief, Bedrijf bedrijf) {
         this.naam = naam;
         this.voornaam = voornaam;
         this.functie = functie;
         this.contactEmail = contactEmail;
         this.contactTelNr = contactTelNr;
         this.gsmNummer = gsmNummer;
+        this.actief = actief;
         this.bedrijf = bedrijf;
     }
 
@@ -112,6 +115,14 @@ public class Contactpersoon implements Serializable{
 
     public void setBedrijf(Bedrijf bedrijf) {
         this.bedrijf = bedrijf;
+    }
+
+    public Boolean isActief() {
+        return actief;
+    }
+
+    public void setActief(Boolean actief) {
+        this.actief = actief;
     }
     
     
