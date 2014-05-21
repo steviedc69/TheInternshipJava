@@ -47,9 +47,9 @@ public class OpdrachtenOverzichtPanelController implements Initializable {
     public ListView<Opdracht> opdrachtenLijst;
 
     @FXML
-    public Label titel, omschrijving, vaardigheden, schooljaar, activatiedatum, aantalStudenten, adres, ondertekenaar, specialisatie, stagementor, bedrijf;
+    public Label titel, vaardigheden, schooljaar, activatiedatum, aantalStudenten, adres, ondertekenaar, specialisatie, stagementor, bedrijf;
     @FXML
-    public TextArea admincomment;
+    public TextArea admincomment, omschrijving;
     @FXML
     public ChoiceBox<StageBegeleider> stagebegeleider;
     @FXML
@@ -109,6 +109,7 @@ public class OpdrachtenOverzichtPanelController implements Initializable {
     //alle tekstvakken opvullen
     public void tekstVakken(Opdracht opdracht) {
         titel.setText(opdracht.getTitle());
+        admincomment.setText(opdracht.getAdmincomment());
         omschrijving.setText(opdracht.getOmschrijving());
         vaardigheden.setText(opdracht.getVaardigheden());
         schooljaar.setText(opdracht.getSchooljaar());
