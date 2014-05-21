@@ -122,9 +122,6 @@
   <left>
     <ListView fx:id="opdrachtenLijst" prefHeight="200.0" prefWidth="200.0" />
   </left>
-  <right>
-    <ListView fx:id="studentenLijst" focusTraversable="true" prefHeight="704.0" prefWidth="113.0" visible="true" />
-  </right>
   <stylesheets>
     <URL value="@style.css" />
   </stylesheets>
