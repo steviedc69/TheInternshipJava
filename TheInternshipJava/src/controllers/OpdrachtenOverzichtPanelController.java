@@ -7,9 +7,11 @@ import domain.Statussen;
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +33,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -192,7 +195,7 @@ public class OpdrachtenOverzichtPanelController implements Initializable {
             public void handle(ActionEvent t) {
                 Opdracht opdracht = opdrachtenLijst.getSelectionModel().getSelectedItem();
                 if (opdracht != null) {
-                    
+                    //
                     Status statusOpdracht = opdracht.getStatus();
                     Opdracht opdrachtNieuw = opdracht;
                     opdrachtNieuw.setAdmincomment(admincomment.getText());
@@ -200,12 +203,21 @@ public class OpdrachtenOverzichtPanelController implements Initializable {
                     opdrachtNieuw.setIsSemester2(semester2.isSelected());
                     opdrachtNieuw.setStatus(status.getSelectionModel().getSelectedItem());
                     opdrachtNieuw.setStagebegeleider(stagebegeleider.getSelectionModel().getSelectedItem());
-                    Date date = new Date();
-                    int bJaar = Integer.parseInt(beginJaar.getText());
-                    int bMaand = Integer.parseInt(beginMaand.getText());
-                    int bDag = Integer.parseInt(beginDag.getText());
-                    if (bJaar > date.getYear() && bJaar < date.getYear() + 3 && bMaand >= 1 0 && bMaand <=12 && bDag >= 1 && bDag >= 31){
+                    
+                    try{
+                        Date bDate = new SimpleDateFormat("dd-MM-yyyy").parse(beginDag.getText() + "-" + beginMaand.getText() + "-" + beginJaar.getText());
+                        Date eDate = new SimpleDateFormat("dd-MM-yyyy").parse(eindDag.getText() + "-" + eindMaand.getText() + "-" + eindJaar.getText());
+                        if (bDate.after(eDate)){
+                            throw new Exception();
+                        }
+                       
+                    }
+                    catch (Exception ex){
+                        JOptionPane.showMessageDialog(null, "De datums zijn niet juist ingevoerd.");
+                    }
                     opdrachtNieuw.setStartDate(beginJaar.getText() + "-" + beginMaand.getText() + "-" + beginDag.getText() + " 00:00:00" );
+                    opdrachtNieuw.setEindDate(eindJaar.getText() + "-" + eindMaand.getText() + "-" + eindDag.getText() + " 00:00:00" );
+
                     DBClass.persistOpdracht(opdracht, opdrachtNieuw);
                     
                     try {
