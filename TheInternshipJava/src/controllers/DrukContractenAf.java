@@ -42,6 +42,7 @@ public class DrukContractenAf implements EventHandler {
                 replacementText.put("…………………………………………………………………………………………………………………", opdracht.getAdres().toString());
                 replacementText.put("onderwijsinstelling de heer of mevrouw ……………………", "onderwijsinstelling de heer/mevrouw " + opdracht.getStagementor().getVoornaam() + " " + opdracht.getStagementor().getNaam());
                 replacementText.put("De stage instelling duidt de heer of mevrouw  ………………………..", "De stage-instelling duidt de heer/mevrouw " + opdracht.getStagebegeleider().getVoornaam() + " " + opdracht.getStagebegeleider().getNaam());
+                replacementText.put("De stageperiode loopt van ../../….  tot ../../…. . Het uurrooster en de vrijgestelde dagen zijn bepaald", "De stageperiode loopt van " + opdracht.getStartDateConverted() + " van " + opdracht.getendDateConverted() + ". Het uurrooster en de vrijgestelde dagen zijn bepaald");
                 InsertText in = new InsertText("TI_Blanco_stageovereenkomst_2014-2015.doc", replacementText, student.getVoornaam() + "_" + student.getNaam() + ".doc");
                 in.processFile();
                 System.out.println("Ok");

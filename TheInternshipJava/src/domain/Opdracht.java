@@ -265,7 +265,19 @@ public class Opdracht implements Serializable{
         this.eindDate = eindDate;
     }
 
-
+    public String getStartDateConverted(){
+        String startDateString = getStartDate().substring(8, 10) + "/";
+        startDateString += getStartDate().substring(5, 7) + "/";
+        startDateString += getStartDate().substring(0, 4);
+        return startDateString;
+    }
+    
+    public String getendDateConverted(){
+        String startDateString = getEindDate().substring(8, 10) + "/";
+        startDateString += getEindDate().substring(5, 7) + "/";
+        startDateString += getEindDate().substring(0, 4);
+        return startDateString;
+    }
     
     
 
