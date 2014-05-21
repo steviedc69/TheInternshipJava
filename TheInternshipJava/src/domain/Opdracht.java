@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -48,6 +49,10 @@ public class Opdracht implements Serializable{
     //formate = yyyyMMddHHmmss
     @Temporal(TemporalType.TIMESTAMP)
     private Date activatieDatum;
+    //@Temporal(TemporalType.TIMESTAMP)
+    private String startDate;
+    //@Temporal(TemporalType.TIMESTAMP)
+    private String eindDate;
     private int aantalStudenten;
     @OneToOne
     @JoinColumn(name="adresId")
@@ -64,8 +69,12 @@ public class Opdracht implements Serializable{
     @OneToOne
     @JoinColumn(name="bedrijfId")
     private Bedrijf bedrijf;
-    @ManyToMany(mappedBy="opdrachten")
-    @JoinTable(name="favorites")
+    
+    
+    
+    //Studenten worden ingeladen voor wie de opdracht tussen favorieten staat.
+    @ManyToMany
+    @JoinTable(name="favorites", joinColumns = {@JoinColumn(name="OpdrachtId", referencedColumnName = "Id")}, inverseJoinColumns = {@JoinColumn(name="StudentId", referencedColumnName = "Id")})
     private List<Student> studenten;
     @OneToOne
     @JoinColumn(name="Status_Id")
@@ -75,11 +84,10 @@ public class Opdracht implements Serializable{
     private StageBegeleider stagebegeleider;
     
     @ManyToMany
-    @JoinTable(name="begeleiderpreferences")
+    @JoinTable(name="begeleiderpreferences", joinColumns = {@JoinColumn(name="OpdrachtId")}, inverseJoinColumns = {@JoinColumn(name="StagebegeleiderId")})
     private List<StageBegeleider> stagebegeleiders;
-    
-    public Opdracht(String title, String omschrijving, String vaardigheden, Boolean isSemester1, Boolean isSemester2, String schooljaar, String admincomment, String activatiedatum, 
-            int aantalStudenten, Adres adres, Contactpersoon ondertekenaar, Specialisatie specialisatie, Contactpersoon stagementor, Bedrijf bedrijf, Status status, StageBegeleider stagebegeleider){
+
+    public Opdracht(String title, String omschrijving, String vaardigheden, Boolean isSemester1, Boolean isSemester2, String schooljaar, String admincomment, String activatiedatum, String startdate, String einddate, int aantalStudenten, Adres adres, Contactpersoon ondertekenaar, Specialisatie specialisatie, Contactpersoon stagementor, Bedrijf bedrijf, List<Student> studenten, Status status, StageBegeleider stagebegeleider, List<StageBegeleider> stagebegeleiders) {
         this.title = title;
         this.omschrijving = omschrijving;
         this.vaardigheden = vaardigheden;
@@ -87,24 +95,35 @@ public class Opdracht implements Serializable{
         this.isSemester2 = isSemester2;
         this.schooljaar = schooljaar;
         this.admincomment = admincomment;
+        
         this.aantalStudenten = aantalStudenten;
         this.adres = adres;
         this.ondertekenaar = ondertekenaar;
         this.specialisatie = specialisatie;
         this.stagementor = stagementor;
         this.bedrijf = bedrijf;
+        this.studenten = studenten;
         this.status = status;
         this.stagebegeleider = stagebegeleider;
+        this.stagebegeleiders = stagebegeleiders;
+        
         try {
             activatieDatum = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(activatiedatum);
+            //startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startdate);
+            //eindDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(einddate);
+            
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
+    
+    
+    
+    
         
     public Opdracht(){}
-
+    
     public int getId() {
         return id;
     }
@@ -230,8 +249,24 @@ public class Opdracht implements Serializable{
         this.bedrijf = bedrijf;
     }
 
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getEindDate() {
+        return eindDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEindDate(String eindDate) {
+        this.eindDate = eindDate;
+    }
 
 
+    
     
 
     public List<Student> getStudenten() {
@@ -264,9 +299,7 @@ public class Opdracht implements Serializable{
 
     public void setStagebegeleiders(List<StageBegeleider> stagebegeleiders) {
         this.stagebegeleiders = stagebegeleiders;
-    }
-
-        
+    }        
     
     
     @Override

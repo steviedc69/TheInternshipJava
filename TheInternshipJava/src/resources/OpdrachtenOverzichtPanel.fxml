@@ -3,36 +3,128 @@
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane id="lijst" prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controllers.OpdrachtenOverzichtPanelController">
+<BorderPane id="lijst" prefHeight="788.0" prefWidth="805.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controllers.OpdrachtenOverzichtPanelController">
   <bottom>
     <ToolBar>
       <items>
-        <Button fx:id="Opslaan" defaultButton="false" focusTraversable="false" mnemonicParsing="false" style="-fx-base: rgba(0,111,184,1);" text="Opslaan" />
-        <Button cancelButton="false" defaultButton="false" focusTraversable="false" mnemonicParsing="false" text="Annuleer" textAlignment="LEFT" />
+        <Button id="Opslaan" fx:id="opslaan" defaultButton="false" focusTraversable="false" mnemonicParsing="false" style="-fx-base: rgba(0,111,184,1);" text="Opslaan" />
+        <Button fx:id="annuleer" cancelButton="false" defaultButton="false" focusTraversable="false" mnemonicParsing="false" text="Annuleer" textAlignment="LEFT" />
+        <Button fx:id="drukAf" mnemonicParsing="false" text="Druk stagecontracten af" />
       </items>
     </ToolBar>
   </bottom>
   <center>
-    <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
-      <tabs>
-        <Tab text="Beheer opdrachten">
-          <content>
-            <ListView fx:id="opdrachtenLijst" editable="true" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" orientation="VERTICAL" pickOnBounds="false" prefHeight="-1.0" prefWidth="-1.0" />
-          </content>
-        </Tab>
-        <Tab text="Untitled Tab 2">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-          </content>
-        </Tab>
-      </tabs>
-    </TabPane>
+    <GridPane fx:id="opdrachtPane" alignment="TOP_LEFT" hgap="10.0" vgap="2.0" BorderPane.alignment="CENTER">
+      <children>
+        <Label text="Titel:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label text="Omschrijving:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label text="Vaardigheden:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <CheckBox fx:id="semester1" mnemonicParsing="false" text="Semester 1" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <CheckBox fx:id="semester2" mnemonicParsing="false" text="Semester 2" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <Label text="Schooljaar:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <Label text="Admincomment:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <Label text="Activatiedatum:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+        <Label text="Aantal studenten:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+        <Label text="Adres:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+        <Label text="Ondertekenaar:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+        <Label text="Stagementor:" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+        <Label text="Specialisatie:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+        <Label text="Bedrijf:" GridPane.columnIndex="0" GridPane.rowIndex="13" />
+        <Label text="Stagebegeleider:" GridPane.columnIndex="0" GridPane.rowIndex="16" />
+        <Label text="Status:" GridPane.columnIndex="0" GridPane.rowIndex="17" />
+        <TextArea fx:id="admincomment" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <Label fx:id="titel" text="" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Label fx:id="omschrijving" text="" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
+        <Label fx:id="vaardigheden" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label fx:id="schooljaar" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Label fx:id="activatiedatum" text="" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Label fx:id="aantalStudenten" text="" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+        <Label fx:id="adres" text="" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+        <Label fx:id="ondertekenaar" text="" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+        <Label fx:id="stagementor" text="" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+        <Label fx:id="specialisatie" text="" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+        <Label fx:id="bedrijf" text="" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+        <ChoiceBox fx:id="stagebegeleider" GridPane.columnIndex="1" GridPane.rowIndex="16">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="Item 1" />
+              <String fx:value="Item 2" />
+              <String fx:value="Item 3" />
+            </FXCollections>
+          </items>
+        </ChoiceBox>
+        <ChoiceBox fx:id="status" GridPane.columnIndex="1" GridPane.rowIndex="17">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="Item 1" />
+              <String fx:value="Item 2" />
+              <String fx:value="Item 3" />
+            </FXCollections>
+          </items>
+        </ChoiceBox>
+        <Label text="Begin datum:" GridPane.columnIndex="0" GridPane.rowIndex="14" />
+        <Label text="Eind datum:" GridPane.columnIndex="0" GridPane.rowIndex="15" />
+        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="14">
+          <children>
+            <TextField fx:id="beginDag" prefWidth="32.000099999997474" text="dd" />
+            <Label text="/" />
+            <TextField fx:id="beginMaand" prefWidth="41.0" text="mm" />
+            <Label text="/" />
+            <TextField fx:id="beginJaar" prefWidth="54.0" text="yyyy" />
+          </children>
+        </HBox>
+        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="15">
+          <children>
+            <TextField id="beginDag" fx:id="eindDag" prefWidth="32.000099999997474" text="dd" />
+            <Label text="/" />
+            <TextField id="beginMaand" fx:id="eindMaand" prefWidth="41.0" text="mm" />
+            <Label text="/" />
+            <TextField id="beginJaar" fx:id="eindJaar" prefWidth="54.0" text="yyyy" />
+          </children>
+        </HBox>
+      </children>
+      <columnConstraints>
+        <ColumnConstraints fillWidth="true" halignment="RIGHT" hgrow="ALWAYS" minWidth="-1.0" percentWidth="0.0" prefWidth="-1.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="-1.0" percentWidth="0.0" prefWidth="-1.0" />
+      </columnConstraints>
+      <padding>
+        <Insets />
+      </padding>
+      <rowConstraints>
+        <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="37.0" minHeight="10.0" prefHeight="19.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="37.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="73.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="154.0" prefHeight="90.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="14.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="14.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="20.0" minHeight="0.0" prefHeight="14.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="14.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="14.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="177.0" minHeight="10.0" prefHeight="22.0" valignment="TOP" vgrow="ALWAYS" />
+        <RowConstraints maxHeight="177.0" minHeight="10.0" prefHeight="22.0" valignment="TOP" vgrow="ALWAYS" />
+        <RowConstraints maxHeight="177.0" minHeight="10.0" prefHeight="163.0" valignment="TOP" vgrow="ALWAYS" />
+        <RowConstraints maxHeight="93.0" minHeight="0.0" prefHeight="88.0" vgrow="ALWAYS" />
+      </rowConstraints>
+    </GridPane>
   </center>
+  <left>
+    <ListView fx:id="opdrachtenLijst" prefHeight="200.0" prefWidth="200.0" />
+  </left>
+  <right>
+    <ListView fx:id="studentenLijst" focusTraversable="true" prefHeight="704.0" prefWidth="113.0" visible="true" />
+  </right>
   <stylesheets>
     <URL value="@style.css" />
   </stylesheets>

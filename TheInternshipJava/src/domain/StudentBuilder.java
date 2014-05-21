@@ -6,22 +6,48 @@
 
 package domain;
 
+import java.util.List;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+
 /**
  *
  * @author thomas
  */
 public class StudentBuilder {
+    private Opdracht opdracht;
     private String naam;
     private String voornaam;
-    private String straat;
-    private int straatnummer;
-    private String woonplaats;
-    private int postcode;
     private String gsmnummer;
     private String gebdatum;
     private boolean notFirstTime;
+    private List<Opdracht> opdrachtenStudent;
+    private Adres adres;
+    private String imageUrl;
     
     public StudentBuilder(){}
+    
+    public StudentBuilder opdracht(Opdracht opdracht){
+        this.opdracht = opdracht;
+        return this;
+    }
+    
+    public StudentBuilder adres(Adres adres){
+        this.adres = adres;
+        return this;
+    }
+    
+    public StudentBuilder opdrachtenStudent(List<Opdracht> opdrachtenStudent){
+        this.opdrachtenStudent = opdrachtenStudent;
+        return this;
+    }
+    
+    public StudentBuilder imageUrl(String imageUrl){
+        this.imageUrl = imageUrl;
+        return this;
+    }
     
     public StudentBuilder naam(String naam){
         this.naam = naam;
@@ -33,25 +59,6 @@ public class StudentBuilder {
         return this;
     }
     
-    public StudentBuilder straat(String straat){
-        this.straat = straat;
-        return this;
-    }
-    
-    public StudentBuilder straatnummer(int straatnummer){
-        this.straatnummer = straatnummer;
-        return this;
-    }
-    
-    public StudentBuilder woonplaats(String woonplaats){
-        this.woonplaats = woonplaats;
-        return this;
-    }
-    
-    public StudentBuilder postcode(int postcode){
-        this.postcode = postcode;
-        return this;
-    }
     
     public StudentBuilder gsmnummer(String gsmnummer){
         this.gsmnummer = gsmnummer;
@@ -69,7 +76,9 @@ public class StudentBuilder {
     }
     
     public Student buildStudent(){
-        return new Student(naam, voornaam, straat, straatnummer, woonplaats, postcode, gsmnummer, gebdatum, notFirstTime);
+        return new Student(opdracht, naam, voornaam, gsmnummer, gebdatum, notFirstTime, opdrachtenStudent, imageUrl, adres);
+        
+
     }
     
 }

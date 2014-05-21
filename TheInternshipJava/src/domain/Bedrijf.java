@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.persistence.*;
 
 /**
@@ -14,34 +16,59 @@ import javax.persistence.*;
  * @author thomas
  */
 @Entity
-@Table(name="bedrijf")
+@Table(name = "bedrijf")
 @NamedQueries({
     @NamedQuery(name = "Bedrijf.findAll", query = "SELECT b FROM Bedrijf b")
 })
-public class Bedrijf implements Serializable{
+public class Bedrijf implements Serializable {
+
     @Id
     private String id;
     @OneToOne
-    @JoinColumn(name="Adres")
+    @JoinColumn(name = "Adres")
     private Adres adres;
     private String bedrijfsnaam;
     private String url;
     private String telefoon;
-    private String bereikbaarheid;
     private String activiteit;
     private String imageUrl;
-    
-    public Bedrijf(){}
+    private Boolean openbaarVervoer;
+    private Boolean perAuto;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date beginDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date eindDate;
 
-    public Bedrijf(Adres adres, String bedrijfsnaam, String url, String telefoon, String bereikbaarheid, String activiteit, String imageUrl) {
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private AspNetUsers user;
+
+    public Bedrijf() {
+    }
+
+    public Bedrijf(Adres adres, String bedrijfsnaam, String url, String telefoon, String activiteit, String imageUrl, Boolean openbaarVervoer, Boolean perAuto, String startDate, String eindDate, AspNetUsers user) {
         this.adres = adres;
         this.bedrijfsnaam = bedrijfsnaam;
         this.url = url;
         this.telefoon = telefoon;
-        this.bereikbaarheid = bereikbaarheid;
         this.activiteit = activiteit;
         this.imageUrl = imageUrl;
+        this.openbaarVervoer = openbaarVervoer;
+        this.perAuto = perAuto;
+        this.user = user;
+        
+        try {
+            
+            this.beginDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startDate);
+            this.eindDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(eindDate);
+            
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
+
+    
 
     public String getId() {
         return id;
@@ -83,14 +110,6 @@ public class Bedrijf implements Serializable{
         this.telefoon = telefoon;
     }
 
-    public String getBereikbaarheid() {
-        return bereikbaarheid;
-    }
-
-    public void setBereikbaarheid(String bereikbaarheid) {
-        this.bereikbaarheid = bereikbaarheid;
-    }
-
     public String getActiviteit() {
         return activiteit;
     }
@@ -105,6 +124,46 @@ public class Bedrijf implements Serializable{
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public AspNetUsers getUser() {
+        return user;
+    }
+
+    public void setUser(AspNetUsers user) {
+        this.user = user;
+    }
+
+    public Boolean isOpenbaarVervoer() {
+        return openbaarVervoer;
+    }
+
+    public void setOpenbaarVervoer(Boolean openbaarVervoer) {
+        this.openbaarVervoer = openbaarVervoer;
+    }
+
+    public Boolean isPerAuto() {
+        return perAuto;
+    }
+
+    public void setPerAuto(Boolean perAuto) {
+        this.perAuto = perAuto;
+    }
+
+    public Date getStartDate() {
+        return beginDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.beginDate = startDate;
+    }
+
+    public Date getEindDate() {
+        return eindDate;
+    }
+
+    public void setEindDate(Date eindDate) {
+        this.eindDate = eindDate;
     }
     
     

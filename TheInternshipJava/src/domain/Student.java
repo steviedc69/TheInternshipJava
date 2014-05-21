@@ -17,43 +17,61 @@ import javax.persistence.*;
 @Entity
 @Table(name="student")
 @NamedQueries({
-    @NamedQuery(name = "Student.findAll", query = "SELECT s FROM Student s")
+    @NamedQuery(name = "Student.findAll", query = "SELECT s FROM Student s"),
+    @NamedQuery(name = "Student.findRegistered", query = "SELECT s FROM Student s WHERE s.opdracht = :opdrachtStage"),
+    @NamedQuery(name = "Student.findUnRegistered", query = "SELECT s FROM Student s WHERE NOT s.opdracht = :opdrachtStage")
+        
 })
+
 public class Student implements Serializable{
     @Id
-    private int id;
+    private String id;
+    @JoinColumn(name="StageId")
+    private Opdracht opdracht;
     private String naam;
     private String voornaam;
-    private String straat;
-    private int straatnummer;
-    private String woonplaats;
-    private int postcode;
     private String gsmnummer;
     private String gebdatum;
     private boolean notFirstTime;
     @ManyToMany
     @JoinTable(name="favorites")
-    List<Opdracht> opdrachten;
+    private List<Opdracht> opdrachtenStudent;
+    private String imageUrl;
+    @OneToOne
+    @JoinColumn(name="adresId")
+    private Adres adres;
 
-    public Student(String naam, String voornaam, String straat, int straatnummer, String woonplaats, int postcode, String gsmnummer, String gebdatum, boolean notFirstTime) {
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imagesUrl) {
+        this.imageUrl = imagesUrl;
+    }
+
+    public Student(Opdracht opdracht, String naam, String voornaam, String gsmnummer, String gebdatum, boolean notFirstTime, List<Opdracht> opdrachtenStudent, String imageUrl, Adres adres) {
+        this.opdracht = opdracht;
         this.naam = naam;
         this.voornaam = voornaam;
-        this.straat = straat;
-        this.straatnummer = straatnummer;
-        this.woonplaats = woonplaats;
-        this.postcode = postcode;
+        
         this.gsmnummer = gsmnummer;
         this.gebdatum = gebdatum;
         this.notFirstTime = notFirstTime;
+        this.opdrachtenStudent = opdrachtenStudent;
+        this.imageUrl = imageUrl;
+        this.adres = adres;
     }
+
+  
+    
     
     public Student(){}
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -71,38 +89,6 @@ public class Student implements Serializable{
 
     public void setVoornaam(String voornaam) {
         this.voornaam = voornaam;
-    }
-
-    public String getStraat() {
-        return straat;
-    }
-
-    public void setStraat(String straat) {
-        this.straat = straat;
-    }
-
-    public int getStraatnummer() {
-        return straatnummer;
-    }
-
-    public void setStraatnummer(int straatnummer) {
-        this.straatnummer = straatnummer;
-    }
-
-    public String getWoonplaats() {
-        return woonplaats;
-    }
-
-    public void setWoonplaats(String woonplaats) {
-        this.woonplaats = woonplaats;
-    }
-
-    public int getPostcode() {
-        return postcode;
-    }
-
-    public void setPostcode(int postcode) {
-        this.postcode = postcode;
     }
 
     public String getGsmnummer() {
@@ -128,6 +114,32 @@ public class Student implements Serializable{
     public void setNotFirstTime(boolean notFirstTime) {
         this.notFirstTime = notFirstTime;
     }
+
+    public Opdracht getOpdracht() {
+        return opdracht;
+    }
+
+    public void setOpdracht(Opdracht opdracht) {
+        this.opdracht = opdracht;
+    }
+
+    public List<Opdracht> getOpdrachtenStudent() {
+        return opdrachtenStudent;
+    }
+
+    public void setOpdrachtenStudent(List<Opdracht> opdrachtenStudent) {
+        this.opdrachtenStudent = opdrachtenStudent;
+    }
+
+    public Adres getAdres() {
+        return adres;
+    }
+
+    public void setAdres(Adres adres) {
+        this.adres = adres;
+    }
+    
+    
     
     
     

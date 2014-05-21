@@ -28,6 +28,7 @@ public class StageBegeleider implements Serializable{
     @ManyToMany
     @JoinTable(name="begeleiderpreferences")
     List<Opdracht> opdrachten;
+    private Boolean isFirstTime;
 
     public StageBegeleider() {
     }
@@ -68,6 +69,33 @@ public class StageBegeleider implements Serializable{
 
     public void setGsmNummer(String gsmNummer) {
         this.gsmNummer = gsmNummer;
+    }
+    
+    public void addStage(){
+        
+    }
+
+    public List<Opdracht> getOpdrachten() {
+        return opdrachten;
+    }
+
+    public void setOpdrachten(List<Opdracht> opdrachten) {
+        this.opdrachten = opdrachten;
+    }
+
+    public Boolean isIsFirstTime() {
+        return isFirstTime;
+    }
+
+    public void setIsFirstTime(Boolean isFirstTime) {
+        this.isFirstTime = isFirstTime;
+    }
+
+    
+    
+    @Override
+    public String toString() {
+        return voornaam + " " + naam;
     }
     
     

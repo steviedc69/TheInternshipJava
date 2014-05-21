@@ -6,6 +6,12 @@
 
 package domain;
 
+import java.util.Date;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 /**
  *
  * @author thomas
@@ -15,11 +21,40 @@ public class BedrijfBuilder {
     private String bedrijfsnaam;
     private String url;
     private String telefoon;
-    private String bereikbaarheid;
     private String activiteit;
     private String imageUrl;
-
+    private Boolean openbaarVervoer;
+    private Boolean perAuto;
+    private String beginDate;
+    private String eindDate;
+    private AspNetUsers user;
+    
     public BedrijfBuilder() {
+    }
+    
+    public BedrijfBuilder user(AspNetUsers user){
+        this.user = user;
+        return this;
+    }
+    
+    public BedrijfBuilder eindDate(String eindDate){
+        this.eindDate = eindDate;
+        return this;
+    }
+    
+    public BedrijfBuilder beginDate(String beginDate){
+        this.beginDate = beginDate;
+        return this;
+    }
+    
+    public BedrijfBuilder perAuto(Boolean perAuto){
+        this.perAuto = perAuto;
+        return this;
+    }
+    
+    public BedrijfBuilder openbaarVervoer(Boolean openbaarVervoer){
+        this.openbaarVervoer = openbaarVervoer;
+        return this;
     }
 
     public BedrijfBuilder adres(Adres adres) {
@@ -42,10 +77,6 @@ public class BedrijfBuilder {
         return this;
     }
 
-    public BedrijfBuilder bereikbaarheid(String bereikbaarheid) {
-        this.bereikbaarheid = bereikbaarheid;
-        return this;
-    }
 
     public BedrijfBuilder activiteit(String activiteit) {
         this.activiteit = activiteit;
@@ -59,7 +90,10 @@ public class BedrijfBuilder {
 
     
     public Bedrijf buildBedrijf(){
-        return new Bedrijf(adres, bedrijfsnaam, url, telefoon, bereikbaarheid, activiteit, imageUrl);
+        
+        return new Bedrijf(adres, bedrijfsnaam, url, telefoon, activiteit, imageUrl, openbaarVervoer, perAuto, beginDate, eindDate, user);
+
+        
     }
     
 }

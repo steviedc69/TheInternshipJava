@@ -7,7 +7,12 @@
 package domain;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,17 +28,44 @@ public class OpdrachtBuilder {
     private Boolean isSemester2;
     private String schooljaar;
     private String admincomment;
-    private String activatiedatum;
+    private String activatieDatum;
+    private String startDate;
+    private String eindDate;
     private int aantalStudenten;
     private Adres adres;
     private Contactpersoon ondertekenaar;
     private Specialisatie specialisatie;
     private Contactpersoon stagementor;
     private Bedrijf bedrijf;
-    private StageBegeleider stagebegeleider;
+    private List<Student> studenten;
     private Status status;
+    private StageBegeleider stagebegeleider;
+    private List<StageBegeleider> stagebegeleiders;
     
     public OpdrachtBuilder(){}
+    
+    public OpdrachtBuilder startDate(String startDate){
+        this.startDate = startDate;
+        return this;
+    }
+    
+    public OpdrachtBuilder eindDate(String eindDate){
+        this.eindDate = eindDate;
+        return this;
+    }
+    
+    public OpdrachtBuilder studenten(List<Student> studenten){
+        this.studenten = studenten;
+        return this;
+    }
+    
+    public OpdrachtBuilder stageBegeleider(StageBegeleider stagebegeleider){
+        this.stagebegeleider = stagebegeleider;
+        return this;        
+    }
+    
+    
+    
     public OpdrachtBuilder title(String title){
         this.title = title;
         return this;
@@ -67,7 +99,7 @@ public class OpdrachtBuilder {
     }
     
     public OpdrachtBuilder activatieDatum(String activatiedatum){
-        this.activatiedatum = activatiedatum;
+        this.activatieDatum = activatiedatum;
         return this;
     }
     public OpdrachtBuilder aantalStudenten(int aantalStudenten){
@@ -104,8 +136,7 @@ public class OpdrachtBuilder {
     }
     
     public Opdracht buildOpdracht(){
-        return new Opdracht(title, omschrijving, vaardigheden, isSemester1, isSemester2, schooljaar, admincomment, activatiedatum, 
-             aantalStudenten,  adres,  ondertekenaar,  specialisatie,  stagementor,  bedrijf, status, stagebegeleider);
+        return new Opdracht(title, omschrijving, vaardigheden, isSemester1, isSemester2, schooljaar, admincomment, activatieDatum, startDate, eindDate, aantalStudenten, adres, ondertekenaar, specialisatie, stagementor, bedrijf, studenten, status, stagebegeleider, stagebegeleiders);
     }
 }
 

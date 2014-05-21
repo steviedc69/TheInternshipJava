@@ -66,5 +66,12 @@ public class Adres implements Serializable{
     public void setGemeente(Gemeente gemeente) {
         this.gemeente = gemeente;
     }
+
+    @Override
+    public String toString() {
+        return straatnaam + " " + nummer + " " + gemeente.getNaam() + " " + gemeente.getPostcode();
+    }
+    
+    
     
 }

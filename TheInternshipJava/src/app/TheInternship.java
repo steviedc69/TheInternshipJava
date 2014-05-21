@@ -1,5 +1,6 @@
 package app;
 
+import controllers.DBClass;
 import controllers.OpdrachtenOverzichtPanelController;
 
 import domain.*;
@@ -32,29 +33,16 @@ public class TheInternship extends Application
         stage.show();
     }
     
-    public List<Opdracht> getOpdrachten(){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("TheInternshipPU");
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-
-        TypedQuery<Opdracht> queryFindAll = em.createNamedQuery("Opdracht.findAll", Opdracht.class);
-        List<Opdracht> list = queryFindAll.getResultList();
-        em.getTransaction().commit();
-        em.close();
-        emf.close();
-        
-        return list;
-    }
-    
     public BorderPane initialize() throws IOException{
         
-        List<Opdracht> list = getOpdrachten();
+        List<Opdracht> list = DBClass.getOpdrachten();
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/OpdrachtenOverzichtPanel.fxml"));
         loader.load();
         
         OpdrachtenOverzichtPanelController controller = loader.getController();
         controller.vulLijst(list);
+        controller.initialiseer();
         
         BorderPane root = loader.getRoot();
         
